@@ -1,15 +1,15 @@
 """
-Insta485 python package configuration.
+AndrewTomai python package configuration.
 
-Andrew DeOrio <awdeorio@umich.edu>
+Andrew Tomai <atomai@umich.edu>
 """
 
 from setuptools import setup
 
 setup(
-    name='insta485',
+    name='andrewtomai',
     version='0.1.0',
-    packages=['insta485'],
+    packages=['andrewtomai'],
     include_package_data=True,
     install_requires=[
         'Flask==0.12.2',

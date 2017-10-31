@@ -1,7 +1,7 @@
 """
-Insta485 development configuration.
+andrewtomai development configuration.
 
-Andrew DeOrio <awdeorio@umich.edu>
+Andrew Tomai <atomai@umich.edu>
 """
 
 import os
@@ -21,8 +21,8 @@ UPLOAD_FOLDER = os.path.join(
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 MAX_CONTENT_LENGTH = 16 * 1024 * 1024
 
-# Database file is var/insta485.sqlite3
+# Database file is var/andrewtomai.sqlite3
 DATABASE_FILENAME = os.path.join(
     os.path.dirname(os.path.dirname(os.path.realpath(__file__))),
-    'var', 'insta485.sqlite3'
+    'var', 'website.sqlite3'
 )

@@ -1,5 +1,5 @@
 #!/bin/bash
-# insta485db
+# websitedb
 
 # Stop on errors
 set -e
@@ -17,48 +17,48 @@ fi
 # Parse argument.  $1 is the first argument
 case $1 in
   "create")
-    if [ -f "var/insta485.sqlite3" ]; then
+    if [ -f "var/website.sqlite3" ]; then
         echo "Error: database already exists"
     else
         echo "+ mkdir -p var/uploads"
         mkdir -p var/uploads
-        echo "+ sqlite3 var/insta485.sqlite3 < sql/schema.sql"
-        sqlite3 var/insta485.sqlite3 < sql/schema.sql
-        echo "+ sqlite3 var/insta485.sqlite3 < sql/data.sql"
-        sqlite3 var/insta485.sqlite3 < sql/data.sql
+        echo "+ sqlite3 var/website.sqlite3 < sql/schema.sql"
+        sqlite3 var/website.sqlite3 < sql/schema.sql
+        echo "+ sqlite3 var/website.sqlite3 < sql/data.sql"
+        sqlite3 var/website.sqlite3 < sql/data.sql
         echo "+ cp sql/uploads/* var/uploads/"
         cp sql/uploads/* var/uploads/
     fi
     ;;
 
   "destroy")
-    echo "+ rm -rf var/insta485.sqlite3 var/uploads"
-    rm -rf var/insta485.sqlite3 var/uploads
+    echo "+ rm -rf var/website.sqlite3 var/uploads"
+    rm -rf var/website.sqlite3 var/uploads
     ;;
 
   "reset")
-    echo "+ rm -rf var/insta485.sqlite3 var/uploads"
-    rm -rf var/insta485.sqlite3 var/uploads
+    echo "+ rm -rf var/website.sqlite3 var/uploads"
+    rm -rf var/website.sqlite3 var/uploads
     echo "+ mkdir -p var/uploads"
     mkdir -p var/uploads
-    echo "+ sqlite3 var/insta485.sqlite3 < sql/schema.sql"
-    sqlite3 var/insta485.sqlite3 < sql/schema.sql
-    echo "+ sqlite3 var/insta485.sqlite3 < sql/data.sql"
-    sqlite3 var/insta485.sqlite3 < sql/data.sql
+    echo "+ sqlite3 var/website.sqlite3 < sql/schema.sql"
+    sqlite3 var/website.sqlite3 < sql/schema.sql
+    echo "+ sqlite3 var/website.sqlite3 < sql/data.sql"
+    sqlite3 var/website.sqlite3 < sql/data.sql
     echo "+ cp sql/uploads/* var/uploads/"
     cp sql/uploads/* var/uploads/
     ;;
 
   "dump")
-    sqlite3 -batch -line var/insta485.sqlite3 'SELECT * FROM comments'
-    sqlite3 -batch -line var/insta485.sqlite3 'SELECT * FROM following'
-    sqlite3 -batch -line var/insta485.sqlite3 'SELECT * FROM likes'
-    sqlite3 -batch -line var/insta485.sqlite3 'SELECT * FROM posts'
-    sqlite3 -batch -line var/insta485.sqlite3 'SELECT * FROM users'
+    sqlite3 -batch -line var/website.sqlite3 'SELECT * FROM comments'
+    sqlite3 -batch -line var/website.sqlite3 'SELECT * FROM following'
+    sqlite3 -batch -line var/website.sqlite3 'SELECT * FROM likes'
+    sqlite3 -batch -line var/website.sqlite3 'SELECT * FROM posts'
+    sqlite3 -batch -line var/website.sqlite3 'SELECT * FROM users'
     ;;
   
   "random")
-    DB_FILENAME=var/insta485.sqlite3
+    DB_FILENAME=var/website.sqlite3
     FILENAMES="122a7d27ca1d7420a1072f695d9290fad4501a41.jpg
               ad7790405c539894d25ab8dcf0b79eed3341e109.jpg
               9887e06812ef434d291e4936417d125cd594b38a.jpg
