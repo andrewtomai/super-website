@@ -23,6 +23,15 @@ VALUES(
     '122a7d27ca1d7420a1072f695d9290fad4501a41.jpg',
     'this is a sample blogpost',
     CURRENT_TIMESTAMP);
+INSERT
+INTO posts(
+    banner,
+    text,
+    created)
+VALUES(
+    '122a7d27ca1d7420a1072f695d9290fad4501a41.jpg',
+    'this is a sample blogpost',
+    CURRENT_TIMESTAMP);
 
 INSERT
 INTO comments(

@@ -1,7 +1,7 @@
 """
-Insta485 package initializer.
+andrewtomai package initializer.
 
-Andrew DeOrio <awdeorio@umich.edu>
+Andrew Tomai <atomai@umich.edu>
 """
 import flask
 from werkzeug.wsgi import DispatcherMiddleware
