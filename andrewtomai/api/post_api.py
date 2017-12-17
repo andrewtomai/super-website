@@ -1,11 +1,13 @@
 """
-REST API for all posts
+REST API for all posts.
+
 URLs include:
 /api/p/
 /api/p/<postId>
 """
-import flask
+from andrewtomai.api.upload_helper import upload_file
 import andrewtomai
+import flask
 
 
 @andrewtomai.app.route('/api/p/', methods=['GET', 'POST'])
@@ -22,11 +24,17 @@ def list_posts():
                 "status_code": 400}), 400
         return flask.jsonify(get_posts(size, page))
     else:
-        # if this is a POST request, the user must be logged in as ME!
-        pass
+        # if this is a POST request, the user must be logged in as a root user!
+        # FIXME remove this next line when not testing
+        # flask.session['logname'] = 'atomai'
+        if 'logname' not in flask.session:
+            return flask.jsonify({
+                "message": "Unauthorized",
+                "status_code": 401}), 401
+        return submit_post()
 
 
-@andrewtomai.app.route('/api/p/<int:postid>', methods=['GET'])
+@andrewtomai.app.route('/api/p/<int:postid>/', methods=['GET'])
 def individual_post(postid):
     """Get an individual post."""
     database = andrewtomai.model.get_db()
@@ -49,6 +57,31 @@ def individual_post(postid):
         'text': post['text']
     }
     return flask.jsonify(context)
+
+
+def submit_post():
+    """Submit a post to the website."""
+    database = andrewtomai.model.get_db()
+    cursor = database.execute(
+        "SELECT usertype FROM users "
+        "WHERE username = ?",
+        (flask.session['logname'],)
+    )
+    usertype = cursor.fetchone()['usertype']
+    if usertype is not 0:
+        return flask.jsonify({
+            "message": "Forbidden",
+            "status_code": 403}), 403
+    banner_name = upload_file()
+    cursor = database.execute(
+        "INSERT INTO posts ("
+        "banner, text, created) "
+        "VALUES (?, ?, CURRENT_TIMESTAMP)",
+        (banner_name, flask.request.form['post_text'])
+    )
+    database.commit()
+
+    return flask.jsonify({'status': 'success'})
 
 
 def get_posts(size, page):
